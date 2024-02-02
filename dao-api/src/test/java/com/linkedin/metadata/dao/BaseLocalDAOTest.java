@@ -590,16 +590,6 @@ public class BaseLocalDAOTest {
   public void testMAEEmissionVersionValueChange() throws URISyntaxException {
     FooUrn urn = new FooUrn(1);
     AspectVersioned foo = new AspectVersioned().setValue("foo");
-//    _dummyLocalDAO.setAlwaysEmitAuditEvent(true);
-//    expectGetLatest(urn, AspectFoo.class,
-//        Arrays.asList(makeAspectEntry(null, null), makeAspectEntry(foo, _dummyAuditStamp)));
-//
-//    _dummyLocalDAO.add(urn, foo, _dummyAuditStamp);
-//    _dummyLocalDAO.add(urn, foo, _dummyAuditStamp);
-//
-//    verify(_mockEventProducer, times(1)).produceMetadataAuditEvent(urn, null, foo);
-//    verify(_mockEventProducer, times(1)).produceAspectSpecificMetadataAuditEvent(urn, null, foo, _dummyAuditStamp);
-//    verify(_mockEventProducer, times(1)).produceMetadataAuditEvent(urn, foo, foo);
-//    verifyNoMoreInteractions(_mockEventProducer);
   }
+
 }
