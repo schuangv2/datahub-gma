@@ -17,6 +17,7 @@ import com.linkedin.metadata.query.IndexGroupByCriterion;
 import com.linkedin.metadata.query.IndexSortCriterion;
 import com.linkedin.testing.AspectBar;
 import com.linkedin.testing.AspectFoo;
+import com.linkedin.testing.AspectVersioned;
 import com.linkedin.testing.EntityAspectUnion;
 import com.linkedin.testing.urn.FooUrn;
 import java.net.URISyntaxException;
@@ -583,5 +584,22 @@ public class BaseLocalDAOTest {
     verify(_mockTrackingEventProducer, times(1)).produceAspectSpecificMetadataAuditEvent(
         urn, null, newFoo, _dummyAuditStamp, ingestionTrackingContext, IngestionMode.LIVE);
     verifyNoMoreInteractions(_mockTrackingEventProducer);
+  }
+
+  @Test(description = "!!!Test MAE emissions when a versioned aspect will have a value change ")
+  public void testMAEEmissionVersionValueChange() throws URISyntaxException {
+    FooUrn urn = new FooUrn(1);
+    AspectVersioned foo = new AspectVersioned().setValue("foo");
+//    _dummyLocalDAO.setAlwaysEmitAuditEvent(true);
+//    expectGetLatest(urn, AspectFoo.class,
+//        Arrays.asList(makeAspectEntry(null, null), makeAspectEntry(foo, _dummyAuditStamp)));
+//
+//    _dummyLocalDAO.add(urn, foo, _dummyAuditStamp);
+//    _dummyLocalDAO.add(urn, foo, _dummyAuditStamp);
+//
+//    verify(_mockEventProducer, times(1)).produceMetadataAuditEvent(urn, null, foo);
+//    verify(_mockEventProducer, times(1)).produceAspectSpecificMetadataAuditEvent(urn, null, foo, _dummyAuditStamp);
+//    verify(_mockEventProducer, times(1)).produceMetadataAuditEvent(urn, foo, foo);
+//    verifyNoMoreInteractions(_mockEventProducer);
   }
 }
