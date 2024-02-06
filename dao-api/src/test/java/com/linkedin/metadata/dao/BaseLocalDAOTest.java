@@ -595,7 +595,15 @@ public class BaseLocalDAOTest {
     AspectBar ver010101 = toRecordTemplate(AspectBar.class, createVersionDataMap(1, 1, 1, "testValue1"));
     AspectBar ver020101 = toRecordTemplate(AspectBar.class, createVersionDataMap(2, 1, 1, "testValue2"));
 
-    testMAEEmissionHelper(AspectBar.class, ver010101, ver020101, expectedOutput=ver020101);
+    Map<String, Object> noVerMap = new HashMap<>();
+    noVerMap.put("value", "testValue");
+    AspectBar noVer = toRecordTemplate(AspectBar.class, new DataMap(noVerMap));
+
+    testMAEEmissionHelper( AspectBar.class, ver010101, ver020101, ver020101);
+    testMAEEmissionHelper( AspectBar.class, ver010101, ver010101, ver010101);
+    testMAEEmissionHelper( AspectBar.class, ver020101, ver010101, ver020101);
+    testMAEEmissionHelper( AspectBar.class, ver010101, noVer, ver010101);
+    testMAEEmissionHelper( AspectBar.class, noVer, ver020101, ver020101);
 
   }
 
