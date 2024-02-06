@@ -595,7 +595,7 @@ public class BaseLocalDAOTest {
     AspectVersioned ver010101 = toRecordTemplate(AspectVersioned.class, createVersionDataMap(1, 1, 1, "testValue1"));
     AspectVersioned ver020101 = toRecordTemplate(AspectVersioned.class, createVersionDataMap(2, 1, 1, "testValue2"));
 
-    _dummyLocalDAO.setAlwaysEmitAuditEvent(true);
+    _dummyLocalDAO.setAlwaysEmitAuditEvent(false);
     expectGetLatest(urn, AspectVersioned.class,
         Arrays.asList(makeAspectEntry(null, null), makeAspectEntry(ver010101, _dummyAuditStamp)));
 

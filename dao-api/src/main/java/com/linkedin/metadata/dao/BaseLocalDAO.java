@@ -1418,8 +1418,8 @@ public abstract class BaseLocalDAO<ASPECT_UNION extends UnionTemplate, URN exten
    *
    */
   protected int aspectVersionComparator(@Nonnull RecordTemplate newValue, @Nonnull RecordTemplate oldValue) {
-    DataMap newVerMap = newValue != null? newValue.data().getDataMap("baseSemanticVersion"): null;
-    DataMap oldVerMap = oldValue != null? oldValue.data().getDataMap("baseSemanticVersion"): null;
+    DataMap newVerMap = newValue != null ? newValue.data().getDataMap("baseSemanticVersion") : null;
+    DataMap oldVerMap = oldValue != null ? oldValue.data().getDataMap("baseSemanticVersion") : null;
 
     if (newVerMap == null && oldVerMap == null) {
       return 0;
