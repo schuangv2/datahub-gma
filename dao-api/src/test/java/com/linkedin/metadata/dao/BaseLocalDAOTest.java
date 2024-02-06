@@ -595,7 +595,7 @@ public class BaseLocalDAOTest {
     AspectBar ver010101 = toRecordTemplate(AspectBar.class, createVersionDataMap(1, 1, 1, "testValue1"));
     AspectBar ver020101 = toRecordTemplate(AspectBar.class, createVersionDataMap(2, 1, 1, "testValue2"));
 
-    testMAEEmissionHelper(AspectBar.class, ver010101, ver020101, ver020101);
+    testMAEEmissionHelper(AspectBar.class, ver010101, ver020101, expectedOutput=ver020101);
 
   }
 
