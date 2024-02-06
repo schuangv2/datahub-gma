@@ -21,6 +21,7 @@ import com.linkedin.testing.AspectBar;
 import com.linkedin.testing.AspectFoo;
 import com.linkedin.testing.EntityAspectUnion;
 import com.linkedin.testing.urn.FooUrn;
+import java.lang.Class;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -594,24 +595,11 @@ public class BaseLocalDAOTest {
     AspectBar ver010101 = toRecordTemplate(AspectBar.class, createVersionDataMap(1, 1, 1, "testValue1"));
     AspectBar ver020101 = toRecordTemplate(AspectBar.class, createVersionDataMap(2, 1, 1, "testValue2"));
 
-    _dummyLocalDAO.setAlwaysEmitAuditEvent(true);
-    expectGetLatest(urn, AspectBar.class,
-        Arrays.asList(makeAspectEntry(null, null), makeAspectEntry(ver010101, _dummyAuditStamp)));
-
-    _dummyLocalDAO.add(urn, ver010101, _dummyAuditStamp);
-    AuditStamp auditStamp2 = makeAuditStamp("tester", 5678L);
-    _dummyLocalDAO.add(urn, ver020101, auditStamp2);
-
-    verify(_mockEventProducer, times(1)).produceMetadataAuditEvent(urn, null, ver010101);
-    verify(_mockEventProducer, times(1)).produceAspectSpecificMetadataAuditEvent(urn, null, ver010101, _dummyAuditStamp);
-    verify(_mockEventProducer, times(1)).produceMetadataAuditEvent(urn, ver010101, ver020101);
-    verify(_mockEventProducer, times(1)).produceAspectSpecificMetadataAuditEvent(urn, ver010101, ver020101, auditStamp2);
-    verifyNoMoreInteractions(_mockEventProducer);
-
+    testMAEEmissionHelper(AspectBar.class, ver010101, ver020101, ver020101);
 
   }
 
-  public <ASPECT extends RecordTemplate> void testMAEEmissionHelper(Class<ASPECT> aspectClass, ASPECT input1, ASPECT input2, ASPECT expectedOutput) throws URISyntaxException {
+  private <ASPECT extends RecordTemplate> void testMAEEmissionHelper(Class aspectClass, ASPECT input1, ASPECT input2, ASPECT expectedOutput) throws URISyntaxException {
     FooUrn urn = new FooUrn(1);
 
     _dummyLocalDAO.setAlwaysEmitAuditEvent(true);
