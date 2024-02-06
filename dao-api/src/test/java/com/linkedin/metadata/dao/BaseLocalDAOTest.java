@@ -611,6 +611,26 @@ public class BaseLocalDAOTest {
 
   }
 
+  public <ASPECT extends RecordTemplate> void testMAEEmissionHelper(Class<ASPECT> aspectClass, ASPECT input1, ASPECT input2, ASPECT expectedOutput) throws URISyntaxException {
+    FooUrn urn = new FooUrn(1);
+
+    _dummyLocalDAO.setAlwaysEmitAuditEvent(true);
+    expectGetLatest(urn, aspectClass,
+        Arrays.asList(makeAspectEntry(null, null), makeAspectEntry(input1, _dummyAuditStamp)));
+
+    _dummyLocalDAO.add(urn, input1, _dummyAuditStamp);
+    AuditStamp auditStamp2 = makeAuditStamp("tester", 5678L);
+    _dummyLocalDAO.add(urn, input2, auditStamp2);
+
+    verify(_mockEventProducer, times(1)).produceMetadataAuditEvent(urn, null, input1);
+    verify(_mockEventProducer, times(1)).produceAspectSpecificMetadataAuditEvent(urn, null, input1, _dummyAuditStamp);
+    verify(_mockEventProducer, times(1)).produceMetadataAuditEvent(urn, input1, expectedOutput);
+    verify(_mockEventProducer, times(1)).produceAspectSpecificMetadataAuditEvent(urn, input1, expectedOutput, auditStamp2);
+    verifyNoMoreInteractions(_mockEventProducer);
+
+
+  }
+
   @Test(description = "!!!Test aspectVersionComparator ")
   public void testAspectVersionComparator() throws URISyntaxException {
     AspectBar ver010101 = toRecordTemplate(AspectBar.class, createVersionDataMap(1, 1, 1, "testValue1"));
