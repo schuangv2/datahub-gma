@@ -81,7 +81,7 @@ public class ModelUtilsTest {
   public void testGetValidAspectTypes() {
     Set<Class<? extends RecordTemplate>> validTypes = ModelUtils.getValidAspectTypes(EntityAspectUnion.class);
 
-    assertEquals(validTypes, ImmutableSet.of(AspectVersioned.class, AspectFoo.class, AspectBar.class, AspectFooBar.class, AspectAttributes.class));
+    assertEquals(validTypes, ImmutableSet.of(AspectFoo.class, AspectBar.class, AspectFooBar.class, AspectAttributes.class));
   }
 
   @Test
