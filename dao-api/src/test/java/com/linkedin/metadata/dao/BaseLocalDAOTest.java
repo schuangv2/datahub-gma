@@ -19,7 +19,6 @@ import com.linkedin.metadata.query.IndexGroupByCriterion;
 import com.linkedin.metadata.query.IndexSortCriterion;
 import com.linkedin.testing.AspectBar;
 import com.linkedin.testing.AspectFoo;
-import com.linkedin.testing.AspectVersioned;
 import com.linkedin.testing.EntityAspectUnion;
 import com.linkedin.testing.urn.FooUrn;
 import java.net.URISyntaxException;
@@ -592,11 +591,11 @@ public class BaseLocalDAOTest {
   @Test(description = "!!!Test MAE emissions when a versioned aspect will have a value change ")
   public void testMAEEmissionVersionValueChange() throws URISyntaxException {
     FooUrn urn = new FooUrn(1);
-    AspectVersioned ver010101 = toRecordTemplate(AspectVersioned.class, createVersionDataMap(1, 1, 1, "testValue1"));
-    AspectVersioned ver020101 = toRecordTemplate(AspectVersioned.class, createVersionDataMap(2, 1, 1, "testValue2"));
+    AspectBar ver010101 = toRecordTemplate(AspectBar.class, createVersionDataMap(1, 1, 1, "testValue1"));
+    AspectBar ver020101 = toRecordTemplate(AspectBar.class, createVersionDataMap(2, 1, 1, "testValue2"));
 
     _dummyLocalDAO.setAlwaysEmitAuditEvent(true);
-    expectGetLatest(urn, AspectVersioned.class,
+    expectGetLatest(urn, AspectBar.class,
         Arrays.asList(makeAspectEntry(null, null), makeAspectEntry(ver010101, _dummyAuditStamp)));
 
     _dummyLocalDAO.add(urn, ver010101, _dummyAuditStamp);
@@ -614,12 +613,12 @@ public class BaseLocalDAOTest {
 
   @Test(description = "!!!Test aspectVersionComparator ")
   public void testAspectVersionComparator() throws URISyntaxException {
-    AspectVersioned ver010101 = toRecordTemplate(AspectVersioned.class, createVersionDataMap(1, 1, 1, "testValue1"));
-    AspectVersioned ver020101 = toRecordTemplate(AspectVersioned.class, createVersionDataMap(2, 1, 1, "testValue2"));
+    AspectBar ver010101 = toRecordTemplate(AspectBar.class, createVersionDataMap(1, 1, 1, "testValue1"));
+    AspectBar ver020101 = toRecordTemplate(AspectBar.class, createVersionDataMap(2, 1, 1, "testValue2"));
 
     Map<String, Object> noVerMap = new HashMap<>();
     noVerMap.put("value", "testValue");
-    AspectVersioned noVer = toRecordTemplate(AspectVersioned.class, new DataMap(noVerMap));
+    AspectBar noVer = toRecordTemplate(AspectBar.class, new DataMap(noVerMap));
 
     assertEquals(_dummyLocalDAO.aspectVersionComparator(ver010101, ver010101), 0);
     assertEquals(_dummyLocalDAO.aspectVersionComparator(ver010101, ver020101), -1);
