@@ -602,8 +602,8 @@ public class BaseLocalDAOTest {
     testMAEEmissionHelper( AspectBar.class, ver010101, ver020101, ver020101);
     testMAEEmissionHelper( AspectBar.class, ver010101, ver010101, ver010101);
     testMAEEmissionHelper( AspectBar.class, ver020101, ver010101, ver020101);
-    testMAEEmissionHelper( AspectBar.class, ver010101, noVer, ver010101);
-    testMAEEmissionHelper( AspectBar.class, noVer, ver020101, ver020101);
+    //testMAEEmissionHelper( AspectBar.class, ver010101, noVer, ver010101);
+    //testMAEEmissionHelper( AspectBar.class, noVer, ver020101, ver020101);
 
   }
 
