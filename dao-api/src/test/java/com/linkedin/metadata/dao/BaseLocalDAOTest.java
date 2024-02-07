@@ -642,10 +642,7 @@ public class BaseLocalDAOTest {
   public void testAspectVersionComparator() throws URISyntaxException {
     AspectFoo ver010101 = RecordUtils.toRecordTemplate(AspectFoo.class, createVersionDataMap(1, 1, 1, "testValue1"));
     AspectFoo ver020101 = RecordUtils.toRecordTemplate(AspectFoo.class, createVersionDataMap(2, 1, 1, "testValue2"));
-
-    Map<String, Object> noVerMap = new HashMap<>();
-    noVerMap.put("value", "testValue");
-    AspectFoo noVer = RecordUtils.toRecordTemplate(AspectFoo.class, new DataMap(noVerMap));
+    AspectFoo noVer = new AspectFoo().setValue("noVer");
 
     assertEquals(_dummyLocalDAO.aspectVersionComparator(ver010101, ver010101), 0);
     assertEquals(_dummyLocalDAO.aspectVersionComparator(ver010101, ver020101), -1);
@@ -654,7 +651,6 @@ public class BaseLocalDAOTest {
     assertEquals(_dummyLocalDAO.aspectVersionComparator(noVer, ver010101), -1);
     assertEquals(_dummyLocalDAO.aspectVersionComparator(ver010101, noVer), 1);
   }
-
 
   private DataMap createVersionDataMap(int major, int minor, int patch, String value) {
     Map<String, Integer> versionMap = new HashMap<>();
